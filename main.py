@@ -11,9 +11,9 @@ vid_directory = "/Users/yapginehann/Desktop/codes"
 yolo_model = f"{vid_directory}/train/results/weights/best.pt"
 
 host = "192.168.0.101"  #Raspberry Pi's IP address
-stream_port = "9081" 
-username = "gh"
-password = "12345"
+stream_port = "*" 
+username = "*"
+password = "*"
 rpi_servo_filepath = "/home/gh/stepper.py"
 
 datetime_now = datetime.datetime.now()

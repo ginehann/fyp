@@ -7,6 +7,6 @@ extract feeding velocity before
 scheduling the next feeding interval. 
 
 requirements:
-python = 3.9.16
-ultralytics = 8.0.51
-supervision = 0.3.0
+- python = 3.9.16
+- ultralytics = 8.0.51
+- supervision = 0.3.0

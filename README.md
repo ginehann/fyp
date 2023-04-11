@@ -2,6 +2,8 @@
 A MV pipeline that automates feeding of fishes by detecting, tracking, classify satiety (via feeding velocity) and scheduling feeding interval. 
 
 It uses 
+- MotionEye to stream footages from camera connected to Raspberry Pi
+- Use SSH to toggle feeding 
 - YOLOv8 to detect fishes, 
 - Bot-SORT to track them, 
 - extract feeding velocity from the tracked results before 

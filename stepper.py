@@ -46,12 +46,10 @@ def cleanup():
     GPIO.output( in4, GPIO.LOW )
     GPIO.cleanup()
 
-# 4096 / 14 slots = 293 degree per slot
-
-# the meat
+# rotating stepper motor
 try:
     i = 0
-    for i in range(293):
+    for i in range(293): # 4096 / 14 slots = 293 steps per slot 
         for pin in range(0, len(motor_pins)):
             GPIO.output( motor_pins[pin], step_sequence[motor_step_counter][pin] )
         if direction==True:

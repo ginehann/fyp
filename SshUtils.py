@@ -1,7 +1,9 @@
 #send info to RPi
 import paramiko
 
-def ssh_rpi(host, username, password, remote_script_path):
+
+def ssh_rpi(host, username, password, remote_script_path): # remote_script_path = path to file to be executed
+    
     # Set the command to run on the Raspberry Pi
     remote_command = f"python {remote_script_path}"
 

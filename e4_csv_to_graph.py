@@ -3,13 +3,16 @@ from scipy.interpolate import make_interp_spline
 import pandas as pd
 import numpy as np
 
+# access into feed table generated from main.py
 table = '/Users/yapginehann/Desktop/codes/recordings/e4.1/feed_table.csv'
 df = pd.read_csv(table)
 
+# x array according to number of rows
 x = np.array([1, 2, 3, 4, 5, 6])
 y_1 = np.array(df['mean_activity'])
 y_2 = np.array(df['interval']) / 3600
 
+# generate spline 
 X_Y_Spline_1 = make_interp_spline(x, y_1, bc_type='natural')
 X_Y_Spline_2 = make_interp_spline(x, y_2, bc_type='natural')
 X_ = np.linspace(x.min(), x.max(), 500)
@@ -18,10 +21,12 @@ Y_2 = X_Y_Spline_2(X_)
 
 fig, ax = plt.subplots()
 
+# plot spline and points
 ax.plot(X_, Y_1, color='red')
 ax.plot(x, y_1, 'ro')
 ax.tick_params(axis='y', labelcolor='darkred')
 
+# plot twin x axis, and a single y axis
 ax2 = ax.twinx()
 ax2.plot(X_, Y_2, color='blue')
 ax2.plot(x, y_2, 'bo')

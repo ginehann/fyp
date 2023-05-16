@@ -4,19 +4,23 @@ import supervision as sv
 import numpy as np
 import pandas as pd
 
-def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MODEL):
+# same as DetectTrackUtils.py, except generate an extra video with moving dots of detected fishes
+def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MODEL): # file path to streamed_vid, detected_vid, etc.
 
     print("Running Object Detection & Tracking software...")
 
+    # fuse model to YOLO
     model = YOLO(MODEL)
     model.fuse()
 
+    # box annotator parameters
     box_annotator = sv.BoxAnnotator(
         thickness=1,
         text_thickness=1,
         text_scale=0.5
     )
 
+    # video parameters
     cap = cv2.VideoCapture(streamed_vid)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -28,6 +32,7 @@ def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MOD
     previous_coords = {}
     velocity_whole_video = []
 
+    # detect & track using one line.
     for result in model.track(source=streamed_vid, show=False, stream=True, agnostic_nms=True):
         
         frame = result.orig_img
@@ -45,6 +50,8 @@ def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MOD
         # initialise 
         labels = []
         velocity_in_frame = []
+        
+        # create empty frame
         empty_frame = np.full((480, 640, 3), 255, dtype = np.uint8)
 
         # loop over each detections in a single frame
@@ -75,6 +82,7 @@ def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MOD
                 prefTime.append(1/fps)
                 prev_vel.append(velocity)
             
+            # input labels.
             previous_coords[tracker_id] = (c_x, c_y, prefTime, prev_vel)
             labels.append(f"#{tracker_id} {confidence:0.2f} {int(prev_vel[-1])}p/s")
 
@@ -88,6 +96,7 @@ def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MOD
             labels=labels
         )
 
+        # write both videos.
         out.write(frame)
         out2.write(empty_frame)
     
@@ -95,10 +104,11 @@ def fish_detector_tracker(streamed_vid, detected_vid, dot_vid, output_table ,MOD
     out2.release()
     cv2.destroyAllWindows()
 
+    # create a dataframe with time & aggregate velocity as columns
     frame_timings = np.round(np.arange(len(velocity_whole_video)) / fps, 3)
     df = pd.DataFrame({'Time': frame_timings, 'Aggregate Velocity': velocity_whole_video})
   
-    # save df
+    # save dataframe to a csv file
     df.to_csv(output_table, index=False)
 
     print("Finished Object Detection & Tracking.")

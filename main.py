@@ -8,10 +8,10 @@ from TimeUtils import *
 
 #input parameters
 vid_directory = "/Users/yapginehann/Desktop/codes"
-yolo_model = f"{vid_directory}/train/results/weights/best.pt"
+yolo_model = f"{vid_directory}/train/results/weights/best.pt" 
 
 host = "192.168.0.101"  #Raspberry Pi's IP address
-stream_port = "*" 
+stream_port = "*" #Set in MotionEye
 username = "*"
 password = "*"
 rpi_servo_filepath = "/home/gh/stepper.py"
@@ -22,7 +22,7 @@ date_time = datetime_now.strftime('%d-%m-%y_%H_%M_%S')
 
 print(f"Time now is : {datetime_now}")
 
-#feed fishes
+#feed fishes via SSH connection to RPi
 ssh_rpi(host, username, password, rpi_servo_filepath)
 
 #RPi stream coming in, VLC download stream

@@ -12,7 +12,13 @@ It uses:
 5. extract feeding velocity from the tracked results before 
 6. using it scheduling the next feeding interval. 
 
-requirements:
+Requirements:
 - python = 3.9.16
 - ultralytics = 8.0.51
 - supervision = 0.3.0
+
+To use:
+1. create virtual environment (optional) 
+2. download required dependencies
+3. run main.py
+4. run e4_csv_to_graph.py to plot graph of result from main.py

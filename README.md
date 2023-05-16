@@ -1,13 +1,16 @@
 # Final Year Project codes
-A MV pipeline that automates feeding of fishes by detecting, tracking, classify satiety (via feeding velocity) and scheduling feeding interval. 
+A Machine Vision (MV) pipeline that automates feeding of fishes by detecting, tracking and scheduling feeding interval. 
 
-It uses 
-- MotionEye to stream footages from camera connected to Raspberry Pi
-- Use SSH to toggle feeding 
-- YOLOv8 to detect fishes, 
-- Bot-SORT to track them, 
-- extract feeding velocity from the tracked results before 
-- using it scheduling the next feeding interval. 
+It uses:
+1. MotionEye to stream footages from camera connected to Raspberry Pi
+MotionEye github page: https://github.com/motioneye-project/motioneye/tree/dev
+2. Use SSH to toggle feeding 
+3. YOLOv8 to detect fishes, 
+4. Bot-SORT to track them, 
+YOLOv8 & Bot-SORT native tracking reference: https://github.com/SkalskiP/yolov8-native-tracking
+
+5. extract feeding velocity from the tracked results before 
+6. using it scheduling the next feeding interval. 
 
 requirements:
 - python = 3.9.16

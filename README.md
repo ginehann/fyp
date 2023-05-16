@@ -3,11 +3,11 @@ A Machine Vision (MV) pipeline that automates feeding of fishes by detecting, tr
 
 It uses:
 1. MotionEye to stream footages from camera connected to Raspberry Pi
-MotionEye github page: https://github.com/motioneye-project/motioneye/tree/dev
+- MotionEye github page: https://github.com/motioneye-project/motioneye/tree/dev
 2. Use SSH to toggle feeding 
 3. YOLOv8 to detect fishes, 
 4. Bot-SORT to track them, 
-YOLOv8 & Bot-SORT native tracking reference: https://github.com/SkalskiP/yolov8-native-tracking
+- YOLOv8 & Bot-SORT native tracking reference: https://github.com/SkalskiP/yolov8-native-tracking
 
 5. extract feeding velocity from the tracked results before 
 6. using it scheduling the next feeding interval. 

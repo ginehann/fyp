@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 
+# feeding logic equation
 def give_interval(previous_interval, previous_mean_activity, new_mean_activity):
     return previous_interval * (previous_mean_activity / new_mean_activity)
 
@@ -36,8 +37,11 @@ def calculate_interval_and_update_table(table, datetime, mean, def_interval):
     df.to_csv(table, index=False)
     return interval
 
+# set next feeding time based on time now + calculated interval
 def next_feed(datetime_now, interval):
     next_time = datetime_now + pd.Timedelta(seconds=interval)
+    
+    # if next feeding time > 11pm, set it to 9am on the next day
     end_of_day = datetime_now.replace(hour=23, minute=0, second=0, microsecond=0)
     if next_time > end_of_day:
         # adjust the interval to start at 9am on the next day
@@ -53,7 +57,7 @@ def schedule_next_feed(scheduled_time, directory):
     # Set the datetime to schedule the program
     print("scheduling...")
 
-    # Prepare script that runs venv & test.py
+    # Prepare script that runs virtual environment & main.py
     activate_venv = f"source {directory}/bin/activate"
     str_sch_time = scheduled_time.strftime('%d-%m-%y_%H_%M_%S')
     script = f"export PATH=$PATH:/usr/local/bin\n{activate_venv}\npython {directory}/main.py 2>&1 | tee -a {directory}/recordings/{str_sch_time}-log.txt"
